@@ -8,16 +8,16 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(uuid()) @db.Uuid
-  username       String   @unique()
+  id             String   @id @db.Uuid
+  username       String   @unique
   password       String
   fullName       String
-  email          String   @unique()
+  email          String   @unique
   gender         Gender
   location       String
   userProfileUrl String
   createdDate    DateTime @default(now())
-  updatedDate    DateTime @updatedAt()
+  updatedDate    DateTime
 }
 
 enum Gender {
