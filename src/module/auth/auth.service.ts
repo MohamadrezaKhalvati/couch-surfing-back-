@@ -12,4 +12,16 @@ export class AuthService {
 	async deleteUser() {}
 
 	async readUser() {}
+
+	async verifyUseExistance() {}
+
+	private signPayload() {}
+
+	async verifyIfNewUserIsNotDuplicate() {}
+
+	async verifyIsEmailIsNotDuplicate() {}
+
+	async createHashedPassword() {}
+
+	async verifyIsUsernameNotDuplicate() {}
 }

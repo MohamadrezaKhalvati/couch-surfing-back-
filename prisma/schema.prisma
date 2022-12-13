@@ -15,7 +15,7 @@ model User {
   email          String   @unique
   gender         Gender
   location       String
-  userProfileUrl String
+  userProfileUrl String?
   createdDate    DateTime @default(now())
   updatedDate    DateTime
 }

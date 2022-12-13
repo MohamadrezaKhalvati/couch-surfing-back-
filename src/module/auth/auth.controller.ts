@@ -40,4 +40,12 @@ export class AuthController {
 	@ApiBody({ type: LoginInput })
 	@ApiResponse({ status: 200 })
 	async login(@Body() input: LoginInput) {}
+
+	async changePassword() {}
+
+	async forgetPassword() {}
+
+	async verifyForgetPasswordCode() {}
+
+	async changePasswordWithForgetPasswordCode() {}
 }
