@@ -17,9 +17,15 @@ model User {
   location       String
   userProfileUrl String?
   createdDate    DateTime @default(now())
+	role  		  Role	  @default(Member)
   updatedDate    DateTime
+
 }
 
+enum Role {
+	Admin
+	Member
+}
 enum Gender {
   Male
   Female
