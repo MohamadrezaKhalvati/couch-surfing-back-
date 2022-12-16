@@ -1,7 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { Gender } from '@prisma/client'
+import { Gender, Role } from '@prisma/client'
 import { Type } from 'class-transformer'
 import {
+	IsBoolean,
 	IsEmail,
 	IsEnum,
 	IsOptional,
@@ -42,6 +43,16 @@ class ReadUserData {
 	@IsOptional()
 	@IsEnum(Gender)
 	gender?: Gender
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsBoolean()
+	isActive?: boolean
+
+	@ApiPropertyOptional({ enum: Role })
+	@IsOptional()
+	@IsEnum(Role)
+	role?: Role
 }
 
 export class ReadUserInput {

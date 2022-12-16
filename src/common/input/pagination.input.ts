@@ -19,3 +19,13 @@ export class PaginationData {
 		}
 	}
 }
+
+export async function createPaginationResult<T>(input: Input<T>) {
+	const [data, count] = await Promise.all([input.entity, input.count])
+	return { data, count }
+}
+
+type Input<T> = {
+	entity: Promise<T>
+	count: Promise<number>
+}
