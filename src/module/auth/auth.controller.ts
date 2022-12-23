@@ -26,7 +26,7 @@ export class AuthController {
 	@ApiResponse({ status: 200 })
 	@UseGuards(IsAdmin)
 	async updateUser(@Body() input: UpdateUserInput) {
-		return await this.authService.updateUser(input)
+		// return await this.authService.updateUser(input)
 	}
 
 	@Post('deleteUser')
