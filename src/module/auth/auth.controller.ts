@@ -1,6 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger'
 import { AuthService } from './auth.service'
+import { GetUserId } from './decorator/get-user-id.decorator'
 import { CreateUserInput } from './dto/create-user.input'
 import { DeleteUserInput } from './dto/delete-user.input'
 import { LoginInput } from './dto/login.input'
@@ -25,8 +26,11 @@ export class AuthController {
 	@ApiBody({ type: UpdateUserInput })
 	@ApiResponse({ status: 200 })
 	@UseGuards(IsAdmin)
-	async updateUser(@Body() input: UpdateUserInput) {
-		// return await this.authService.updateUser(input)
+	async updateUser(
+		@Body() input: UpdateUserInput,
+		@GetUserId() requesterId: string,
+	) {
+		return await this.authService.updateUser(input, requesterId)
 	}
 
 	@Post('deleteUser')
@@ -38,7 +42,7 @@ export class AuthController {
 		return await this.authService.deleteUser(input)
 	}
 
-	@Post('readUser')
+	@Get('readUser')
 	@ApiOperation({ operationId: 'readUser' })
 	@ApiBody({ type: ReadUserInput })
 	@ApiResponse({ status: 200 })

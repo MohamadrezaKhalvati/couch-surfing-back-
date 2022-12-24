@@ -1,25 +1,25 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { INestApplication, ValidationPipe } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
 import {
 	FastifyAdapter,
 	NestFastifyApplication,
-} from '@nestjs/platform-fastify';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ServerResponse } from 'http';
-import { AppModule } from './app.module';
+} from '@nestjs/platform-fastify'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { ServerResponse } from 'http'
+import { AppModule } from './app.module'
 
 export async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter(),
-	);
+	)
 
-	setupGlobalValidation(app);
-	setupSwagger(app);
-	setupCors(app);
-	await app.listen(8000);
+	setupGlobalValidation(app)
+	setupSwagger(app)
+	setupCors(app)
+	await app.listen(8000)
 
-	return app;
+	return app
 }
 
 function setupSwagger(app: INestApplication) {
@@ -27,25 +27,25 @@ function setupSwagger(app: INestApplication) {
 		.setTitle('Swagger APIs')
 		.setDescription('The Swagger APIs description')
 		.setVersion('1.0')
-		.build();
+		.build()
 
-	const document = SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('api', app, document);
+	const document = SwaggerModule.createDocument(app, config)
+	SwaggerModule.setup('api', app, document)
 	app.use('/api-docs', (_, res: ServerResponse) =>
 		res.end(JSON.stringify(document)),
-	);
-	return document;
+	)
+	return document
 }
 
 function setupCors(app: INestApplication) {
-	app.enableCors();
+	app.enableCors()
 }
 
 function setupGlobalValidation(app: INestApplication) {
 	// app.useGlobalFilters(new CoreExceptionFilter())
-	app.useGlobalPipes(new ValidationPipe({ transform: true }));
+	app.useGlobalPipes(new ValidationPipe({ transform: true }))
 }
 
 if (process.env.NODE_ENV != 'development' && process.env.NODE_ENV != 'test') {
-	bootstrap();
+	bootstrap()
 }
