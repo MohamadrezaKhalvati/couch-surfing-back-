@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Gender } from '@prisma/client'
 import { Type } from 'class-transformer'
-import { IsEmail, IsEnum, IsString, ValidateNested } from 'class-validator'
+import {
+	IsDate,
+	IsEmail,
+	IsEnum,
+	IsString,
+	ValidateNested,
+} from 'class-validator'
 class CreateUserData {
 	@ApiProperty()
 	@IsString()
@@ -30,6 +36,26 @@ class CreateUserData {
 	@ApiProperty()
 	@IsString()
 	location: string
+
+	@ApiProperty()
+	@IsString()
+	job: string
+
+	@ApiProperty()
+	@IsString()
+	language: string
+
+	@ApiProperty()
+	@IsString()
+	status: string
+
+	@ApiProperty()
+	@IsString()
+	aboutMe: string
+
+	@ApiProperty()
+	@IsDate()
+	birthday: Date
 }
 
 export class CreateUserInput {

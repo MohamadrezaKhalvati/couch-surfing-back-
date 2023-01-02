@@ -13,20 +13,25 @@ model User {
   password       String
   fullName       String
   email          String   @unique
-  gender         Gender
+  birthday       DateTime
   location       String
   userProfileUrl String?
-	role Role	@default(Member)
-  isActive    Boolean  @default(true)
+  job            String
+  langauge       String
+  status         String
+  AboutMe        String
+  gender         Gender
+  role           Role     @default(Member)
+  isActive       Boolean  @default(true)
   createdDate    DateTime @default(now())
-  updatedDate    DateTime	@updatedAt()
-
+  updatedDate    DateTime @updatedAt()
 }
 
 enum Role {
-	Admin
-	Member
+  Admin
+  Member
 }
+
 enum Gender {
   Male
   Female

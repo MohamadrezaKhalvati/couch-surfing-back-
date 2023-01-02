@@ -14,6 +14,13 @@ import { JwtPayloadType } from './guards/token.guard'
 
 @Injectable()
 export class AuthService {
+	readonlySelectUser = {
+		id: true,
+		username: true,
+		email: true,
+		location: true,
+		gender: true,
+	}
 	constructor(private prisma: PrismaService, private jwt: JwtService) {}
 
 	async me(userId: string) {
@@ -46,7 +53,13 @@ export class AuthService {
 				gender: data.gender,
 				location: data.location,
 				username: username,
+				AboutMe: data.aboutMe,
+				birthday: data.birthday,
+				job: data.job,
+				langauge: data.language,
+				status: data.status,
 			},
+			select: this.readonlySelectUser,
 		})
 		return user
 	}
@@ -129,6 +142,13 @@ export class AuthService {
 			role: data.role,
 			isActive: myIsActive,
 			password: hashedPassword,
+			AboutMe: data.aboutMe,
+			birthday: data.birthday,
+			gender: data.gender,
+			job: data.job,
+			langauge: data.language,
+			location: data.location,
+			status: data.status,
 		}
 
 		dataClause = cleanDeep(dataClause)
@@ -163,6 +183,13 @@ export class AuthService {
 			username: rawWhere.username,
 			email: rawWhere.email,
 			role: rawWhere.role,
+			AboutMe: rawWhere.aboutMe,
+			birthday: rawWhere.birthday,
+			gender: rawWhere.gender,
+			job: rawWhere.job,
+			langauge: rawWhere.language,
+			location: rawWhere.location,
+			status: rawWhere.status,
 			fullName: { mode: 'insensitive', contains: rawWhere.fullName },
 		}
 

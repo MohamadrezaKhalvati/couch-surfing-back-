@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { Role } from '@prisma/client'
+import { Gender, Role } from '@prisma/client'
 import { Type } from 'class-transformer'
 import {
 	IsBoolean,
+	IsDate,
 	IsEmail,
 	IsEnum,
 	IsOptional,
@@ -48,8 +49,43 @@ export class UpdateUserData {
 
 	@ApiPropertyOptional()
 	@IsOptional()
+	@IsDate()
+	birthday?: Date
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsDate()
+	location?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
 	@IsString()
 	confirmPassword?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsString()
+	job?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsString()
+	status?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsString()
+	aboutMe?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsString()
+	language?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsString()
+	gender: Gender
 }
 
 export class UpdateUserInput {
