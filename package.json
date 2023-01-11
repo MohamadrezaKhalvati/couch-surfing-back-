@@ -26,7 +26,7 @@
 		"@nestjs/cli": "^9.0.0",
 		"@nestjs/common": "^9.0.4",
 		"@nestjs/core": "^9.0.4",
-		"@nestjs/jwt": "^9.0.0",
+		"@nestjs/jwt": "^10.0.1",
 		"@nestjs/platform-fastify": "^9.0.4",
 		"@nestjs/swagger": "^6.0.4",
 		"@prisma/client": "^4.0.0",
