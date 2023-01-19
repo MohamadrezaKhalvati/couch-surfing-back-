@@ -38,8 +38,13 @@ class ReadEventData {
 
 	@ApiPropertyOptional()
 	@IsOptional()
-	@IsDateString()
+	@IsString()
 	description?: string
+
+	@ApiPropertyOptional()
+	@IsOptional()
+	@IsUUID()
+	userId: string
 }
 
 export class ReadEventInput {
