@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 import { IsUUID, ValidateNested } from 'class-validator'
 
 class DeleteHostData {
@@ -9,7 +10,7 @@ class DeleteHostData {
 
 export class DeleteHostInput {
 	@ApiProperty()
-	@IsUUID()
+	@Type(() => DeleteHostData)
 	@ValidateNested()
 	data: DeleteHostData
 }
