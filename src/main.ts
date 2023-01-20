@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import {
 	FastifyAdapter,
-	NestFastifyApplication,
+	NestFastifyApplication
 } from '@nestjs/platform-fastify'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ServerResponse } from 'http'
