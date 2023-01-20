@@ -1,28 +1,28 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Gender } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger'
+import { Gender } from '@prisma/client'
 
 export class UserModel {
 	@ApiProperty()
-	username: string;
+	username: string
 
 	@ApiProperty()
-	fullName: string;
+	fullName: string
 
 	@ApiProperty()
-	email: string;
+	email: string
 
 	@ApiProperty()
-	gender: Gender;
+	gender: Gender
 
 	@ApiProperty()
-	location: string;
+	location: string
 
 	@ApiProperty()
-	userProfuleUrl: string;
+	userProfuleUrl: string
 
 	@ApiProperty()
-	createdDate: Date;
+	createdDate: Date
 
 	@ApiProperty()
-	updatedDate: Date;
+	updatedDate: Date
 }

@@ -5,7 +5,6 @@ import {
 	NestFastifyApplication,
 } from '@nestjs/platform-fastify'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { ServerResponse } from 'http'
 import { AppModule } from './app.module'
 
 export async function bootstrap() {
@@ -14,8 +13,8 @@ export async function bootstrap() {
 		new FastifyAdapter(),
 	)
 
-	setupGlobalValidation(app)
 	setupSwagger(app)
+	setupGlobalValidation(app)
 	setupCors(app)
 	await app.listen(8000)
 
@@ -29,10 +28,11 @@ function setupSwagger(app: INestApplication) {
 		.setVersion('1.0')
 		.build()
 	const document = SwaggerModule.createDocument(app, config)
-	SwaggerModule.setup('api-doc', app, document)
-	app.use('/api-doc', (_, res: ServerResponse) =>
-		res.end(JSON.stringify(document)),
-	)
+	SwaggerModule.setup('api', app, document)
+
+	// app.use('/api-doc', (_, res: ServerResponse) =>
+	// 	res.end(JSON.stringify(document)),
+	// )
 	return document
 }
 
