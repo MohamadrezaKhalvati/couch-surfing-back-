@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Prisma, Role } from '@prisma/client'
 import cleanDeep from 'clean-deep'
-import hasha from 'hasha'
 import { createPaginationResult } from 'src/common/input/pagination.input'
 import { PrismaService } from '../prisma/prisma.service'
 import { CreateUserInput } from './dto/create-user.input'
@@ -11,6 +10,7 @@ import { LoginInput } from './dto/login.input'
 import { ReadUserInput } from './dto/read-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
 import { JwtPayloadType } from './guards/token.guard'
+var crypto = require('crypto')
 
 @Injectable()
 export class AuthService {
@@ -34,17 +34,15 @@ export class AuthService {
 
 	async createUser(input: CreateUserInput) {
 		const { data } = input
-		const { passsord, confirmPassword } = data
+		const { password, confirmPassword } = data
 		const username = data.username.toLowerCase()
 		const email = data.email.toLowerCase()
-
 		await this.verifyIfNewUserIsNotDuplicate(username, email)
 		await this.verifyPasswordEqualToConfirmPassword(
-			passsord,
+			password,
 			confirmPassword,
 		)
-		const hashedPassword = await this.createHashedPassword(passsord)
-
+		const hashedPassword = await this.createHashedPassword(password)
 		const user = await this.prisma.user.create({
 			data: {
 				email: email,
@@ -176,7 +174,7 @@ export class AuthService {
 	}
 
 	async readUser(input: ReadUserInput) {
-		const rawWhere = input.data
+		const rawWhere = input.data || {}
 		let whereClause: Prisma.UserWhereInput = {
 			id: rawWhere.id,
 			isActive: rawWhere.isActive,
@@ -314,7 +312,10 @@ export class AuthService {
 	}
 
 	private async createHashedPassword(mainPassword: string) {
-		return await hasha.async(mainPassword, { algorithm: 'sha1' })
+		const hash = await crypto
+			.pbkdf2Sync(mainPassword, 'salt', 1000, 64, `sha512`)
+			.toString('hex')
+		return hash
 	}
 
 	private async verifyIsUsernameNotDuplicate(

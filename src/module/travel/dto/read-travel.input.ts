@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiPropertyOptional } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
 import {
 	IsDateString,
@@ -48,10 +48,11 @@ class ReadTravelData {
 }
 
 export class ReadTravelInput {
-	@ApiProperty({ type: ReadTravelData })
+	@ApiPropertyOptional({ type: ReadTravelData })
+	@IsOptional()
 	@Type(() => ReadTravelData)
 	@ValidateNested()
-	data: ReadTravelData
+	data?: ReadTravelData
 
 	@ApiPropertyOptional({ type: PaginationData })
 	@IsOptional()

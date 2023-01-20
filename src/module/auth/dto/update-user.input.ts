@@ -4,6 +4,7 @@ import { Type } from 'class-transformer'
 import {
 	IsBoolean,
 	IsDate,
+	IsDateString,
 	IsEmail,
 	IsEnum,
 	IsOptional,
@@ -49,7 +50,7 @@ export class UpdateUserData {
 
 	@ApiPropertyOptional()
 	@IsOptional()
-	@IsDate()
+	@IsDateString()
 	birthday?: Date
 
 	@ApiPropertyOptional()

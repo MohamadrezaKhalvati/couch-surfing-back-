@@ -1,9 +1,9 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiPropertyOptional } from '@nestjs/swagger'
 import { Gender, Role } from '@prisma/client'
 import { Type } from 'class-transformer'
 import {
 	IsBoolean,
-	IsDate,
+	IsDateString,
 	IsEmail,
 	IsEnum,
 	IsOptional,
@@ -23,12 +23,12 @@ class ReadUserData {
 	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
-	fullName: string
+	fullName?: string
 
 	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
-	location: string
+	location?: string
 
 	@ApiPropertyOptional()
 	@IsOptional()
@@ -62,7 +62,7 @@ class ReadUserData {
 
 	@ApiPropertyOptional()
 	@IsOptional()
-	@IsDate()
+	@IsDateString()
 	birthday?: Date
 
 	@ApiPropertyOptional()
@@ -78,14 +78,15 @@ class ReadUserData {
 	@ApiPropertyOptional()
 	@IsOptional()
 	@IsString()
-	status: string
+	status?: string
 }
 
 export class ReadUserInput {
-	@ApiProperty({ type: ReadUserData })
+	@ApiPropertyOptional({ type: ReadUserData })
+	@IsOptional()
 	@Type(() => ReadUserData)
 	@ValidateNested()
-	data: ReadUserData
+	data?: ReadUserData
 
 	@ApiPropertyOptional({ type: PaginationData })
 	@IsOptional()
@@ -94,6 +95,7 @@ export class ReadUserInput {
 	pagination?: PaginationData
 
 	@ApiPropertyOptional({ type: SortByData })
+	@IsOptional()
 	@Type(() => SortByData)
 	@ValidateNested()
 	sortyBy?: SortByData

@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiPropertyOptional } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
 import {
 	IsDateString,
@@ -44,14 +44,15 @@ class ReadHostData {
 	@ApiPropertyOptional()
 	@IsOptional()
 	@IsUUID()
-	userId: string
+	userId?: string
 }
 
 export class ReadHostInput {
-	@ApiProperty({ type: ReadHostData })
+	@ApiPropertyOptional({ type: ReadHostData })
+	@IsOptional()
 	@Type(() => ReadHostData)
 	@ValidateNested()
-	data: ReadHostData
+	data?: ReadHostData
 
 	@ApiPropertyOptional({ type: PaginationData })
 	@IsOptional()

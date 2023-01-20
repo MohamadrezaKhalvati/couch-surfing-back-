@@ -7,7 +7,7 @@ import { DeleteUserInput } from './dto/delete-user.input'
 import { LoginInput } from './dto/login.input'
 import { ReadUserInput } from './dto/read-user.input'
 import { UpdateUserInput } from './dto/update-user.input'
-import { IsAdmin } from './guards/is-admin.guard'
+import { IsLoggedIn } from './guards/is-logged-in.guard'
 
 @Controller('auth')
 export class AuthController {
@@ -25,7 +25,7 @@ export class AuthController {
 	@ApiOperation({ operationId: 'updateUser' })
 	@ApiBody({ type: UpdateUserInput })
 	@ApiResponse({ status: 200 })
-	@UseGuards(IsAdmin)
+	@UseGuards(IsLoggedIn)
 	async updateUser(
 		@Body() input: UpdateUserInput,
 		@GetUserId() requesterId: string,
@@ -37,7 +37,7 @@ export class AuthController {
 	@ApiOperation({ operationId: 'deleteUser' })
 	@ApiBody({ type: DeleteUserInput })
 	@ApiResponse({ status: 200 })
-	@UseGuards(IsAdmin)
+	@UseGuards(IsLoggedIn)
 	async deleteUser(@Body() input: DeleteUserInput) {
 		return await this.authService.deleteUser(input)
 	}
@@ -46,8 +46,10 @@ export class AuthController {
 	@ApiOperation({ operationId: 'readUser' })
 	@ApiBody({ type: ReadUserInput })
 	@ApiResponse({ status: 200 })
-	@UseGuards(IsAdmin)
-	async readUser() {}
+	@UseGuards(IsLoggedIn)
+	async readUser(@Body() input: ReadUserInput) {
+		return await this.authService.readUser(input)
+	}
 
 	@Post('login')
 	@ApiOperation({ operationId: 'login' })

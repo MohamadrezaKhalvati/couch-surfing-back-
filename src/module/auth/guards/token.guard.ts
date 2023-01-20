@@ -37,7 +37,6 @@ export class TokenGuard implements CanActivate {
 	async canActivate(context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest()
 		const authorization = request.headers['authorization'] || ''
-
 		const token = authorization.replace('bearer ', '').replace('jwt ', '')
 
 		try {
@@ -45,7 +44,6 @@ export class TokenGuard implements CanActivate {
 				secret: process.env.JWT_SECRET_TOKEN,
 			})
 			const tokenData: TokenGuardData = {}
-
 			if (bodyData) {
 				const userId = bodyData.id
 				const foundUser = await this.prisma.user.findUnique({

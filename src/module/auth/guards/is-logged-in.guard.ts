@@ -4,11 +4,12 @@ import { TokenGuardData } from './token.guard'
 export class IsLoggedIn implements CanActivate {
 	async canActivate(context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest()
+
 		const tokenData: TokenGuardData = request.headers._tokenGuard
 		let result = false
-
-		if (tokenData.user) result = true
-		else {
+		if (tokenData.user) {
+			result = true
+		} else {
 			if (tokenData.tokenError) {
 				console.log('VerifyToken Error:', tokenData.tokenError)
 			}
@@ -16,7 +17,6 @@ export class IsLoggedIn implements CanActivate {
 			// 	module: ModuleNames.AuthModule,
 			// 	code: 1,
 			// })
-			console.log('asd')
 		}
 
 		return result
