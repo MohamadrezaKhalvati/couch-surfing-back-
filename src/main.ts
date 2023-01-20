@@ -15,7 +15,7 @@ export async function bootstrap() {
 	)
 
 	setupGlobalValidation(app)
-	setupSwagger(app)
+	// setupSwagger(app)
 	setupCors(app)
 	await app.listen(8000)
 
@@ -30,7 +30,7 @@ function setupSwagger(app: INestApplication) {
 		.build()
 
 	const document = SwaggerModule.createDocument(app, config)
-	SwaggerModule.setup('api', app, document)
+	SwaggerModule.setup('api-doc', app, document)
 	app.use('/api-doc', (_, res: ServerResponse) =>
 		res.end(JSON.stringify(document)),
 	)
