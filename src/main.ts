@@ -15,7 +15,7 @@ export async function bootstrap() {
 	)
 
 	setupGlobalValidation(app)
-	// setupSwagger(app)
+	setupSwagger(app)
 	setupCors(app)
 	await app.listen(8000)
 
@@ -28,7 +28,6 @@ function setupSwagger(app: INestApplication) {
 		.setDescription('The Swagger APIs description')
 		.setVersion('1.0')
 		.build()
-
 	const document = SwaggerModule.createDocument(app, config)
 	SwaggerModule.setup('api-doc', app, document)
 	app.use('/api-doc', (_, res: ServerResponse) =>
@@ -42,7 +41,7 @@ function setupCors(app: INestApplication) {
 }
 
 function setupGlobalValidation(app: INestApplication) {
-	// app.useGlobalFilters(new CoreExceptionFilter0())0
+	// app.useGlobalFilters(new CoreExceptionFilter())
 	app.useGlobalPipes(new ValidationPipe({ transform: true }))
 }
 
